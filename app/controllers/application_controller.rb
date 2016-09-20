@@ -131,7 +131,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = t(:msg_login_needed) if request.fullpath != "/"
       respond_to do |format|
         format.html { redirect_to login_url }
-        format.js   { render text: "window.location = '#{login_url}';" }
+        format.js   { render body: "window.location = '#{login_url}';" }
       end
     end
   end
@@ -227,8 +227,8 @@ class ApplicationController < ActionController::Base
     url = send("#{related.pluralize}_path")
     respond_to do |format|
       format.html { redirect_to(url) }
-      format.js   { render text: %(window.location.href = "#{url}";) }
-      format.json { render text: flash[:warning],  status: :not_found }
+      format.js   { render plain: %(window.location.href = "#{url}";) }
+      format.json { render plain: flash[:warning],  status: :not_found }
       format.xml  { render xml: [flash[:warning]], status: :not_found }
     end
   end
@@ -238,8 +238,8 @@ class ApplicationController < ActionController::Base
     flash[:warning] = t(:msg_not_authorized, default: 'You are not authorized to take this action.')
     respond_to do |format|
       format.html { redirect_to(redirection_url) }
-      format.js   { render text: 'window.location.reload();' }
-      format.json { render text: flash[:warning],  status: :unauthorized }
+      format.js   { render plain: 'window.location.reload();' }
+      format.json { render plain: flash[:warning],  status: :unauthorized }
       format.xml  { render xml: [flash[:warning]], status: :unauthorized }
     end
   end

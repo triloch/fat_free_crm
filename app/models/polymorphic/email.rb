@@ -26,8 +26,18 @@
 #  updated_at      :datetime
 #  state           :string(16)      default("Expanded"), not null
 #
+module RedClothBody
+  def body
+    if defined?(RedCloth)
+      RedCloth.new(super).to_html
+    else
+      super.to_s.gsub("\n", "<br/>")
+    end
+  end
+end
 
 class Email < ActiveRecord::Base
+  prepend RedClothBody
   belongs_to :mediator, polymorphic: true
   belongs_to :user
 
@@ -45,15 +55,6 @@ class Email < ActiveRecord::Base
   def body
     super
   end
-
-  def body_with_textile
-    if defined?(RedCloth)
-      RedCloth.new(body_without_textile).to_html
-    else
-      body_without_textile.to_s.gsub("\n", "<br/>")
-    end
-  end
-  alias_method_chain :body, :textile
 
   ActiveSupport.run_load_hooks(:fat_free_crm_email, self)
 end

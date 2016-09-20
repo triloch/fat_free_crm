@@ -28,6 +28,8 @@ end
 gem 'rails-observers', :git => 'http://github.com/rails/rails-observers.git', :branch => 'master'
 gem 'sprockets', git: 'http://github.com/rails/sprockets.git'
 gem 'sprockets-rails', git: 'http://github.com/rails/sprockets-rails.git' #'~> 3.2.0'
+gem 'ransack', git: 'http://github.com/activerecord-hackery/ransack.git'
+gem 'will_paginate', '~> 3.1.1'
 
 # (See https://github.com/carlhuda/bundler/issues/1041)
 spec = Bundler.load_gemspec(File.expand_path("../fat_free_crm.gemspec", __FILE__))

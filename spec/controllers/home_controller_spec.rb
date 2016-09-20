@@ -88,7 +88,7 @@ describe HomeController do
       @user = FactoryGirl.create(:preference, user: current_user, name: "activity_user", value: Base64.encode64(Marshal.dump("Billy Bones")))
       @duration = FactoryGirl.create(:preference, user: current_user, name: "activity_duration", value: Base64.encode64(Marshal.dump("two days")))
 
-      xhr :get, :options
+      get :options
       expect(assigns[:asset]).to eq("tasks")
       expect(assigns[:user]).to eq("Billy Bones")
       expect(assigns[:duration]).to eq("two days")
@@ -96,7 +96,7 @@ describe HomeController do
     end
 
     it "should not assign instance variables when hiding options" do
-      xhr :get, :options, cancel: "true"
+      get :options, params:{cancel: "true"}
       expect(assigns[:asset]).to eq(nil)
       expect(assigns[:user]).to eq(nil)
       expect(assigns[:duration]).to eq(nil)
@@ -112,7 +112,7 @@ describe HomeController do
     end
 
     it "should save user selected options" do
-      xhr :get, :redraw, asset: "tasks", user: "Billy Bones", duration: "two days"
+      get :redraw, params: {asset: "tasks", user: "Billy Bones", duration: "two days"}
       expect(current_user.pref[:activity_asset]).to eq("tasks")
       expect(current_user.pref[:activity_user]).to eq("Billy Bones")
       expect(current_user.pref[:activity_duration]).to eq("two days")
@@ -133,14 +133,14 @@ describe HomeController do
     it "should toggle expand/collapse state of form section in the session (delete existing session key)" do
       session[:hello] = "world"
 
-      xhr :get, :toggle, id: "hello"
+      get :toggle, params: {id: "hello"}
       expect(session.keys).not_to include(:hello)
     end
 
     it "should toggle expand/collapse state of form section in the session (save new session key)" do
       session.delete(:hello)
 
-      xhr :get, :toggle, id: "hello"
+      get :toggle, params: {id: "hello"}
       expect(session[:hello]).to eq(true)
     end
   end
@@ -191,41 +191,41 @@ describe HomeController do
       comment = double(Comment)
       expect(Comment).to receive(:find).with("1").and_return(comment)
       expect(comment).to receive(:update_attribute).with(:state, 'Collapsed')
-      xhr :get, :timeline, type: "comment", id: "1", state: "Collapsed"
+      get :timeline, params: {type: "comment", id: "1", state: "Collapsed"}
     end
 
     it "should expand all comments and emails on a specific contact" do
       comment = double(Comment)
       expect(Comment).to receive(:find).with("1").and_return(comment)
       expect(comment).to receive(:update_attribute).with(:state, 'Expanded')
-      xhr :get, :timeline, type: "comment", id: "1", state: "Expanded"
+      get :timeline, params: {type: "comment", id: "1", state: "Expanded"}
     end
 
     it "should not do anything when state neither Expanded nor Collapsed" do
       comment = double(Comment)
       expect(Comment).not_to receive(:find).with("1")
-      xhr :get, :timeline, type: "comment", id: "1", state: "Explode"
+      get :timeline, params: {type: "comment", id: "1", state: "Explode"}
     end
 
     it "should collapse all comments and emails on Contact" do
       where_stub = double
       expect(where_stub).to receive(:update_all).with(state: "Collapsed")
       expect(Comment).to receive(:where).and_return(where_stub)
-      xhr :get, :timeline, id: "1,2,3,4+", state: "Collapsed"
+      get :timeline, params: {id: "1,2,3,4+", state: "Collapsed"}
     end
 
     it "should not allow an arbitary state (sanitizes input)" do
       where_stub = double
       expect(where_stub).to receive(:update_all).with(state: "Expanded")
       expect(Comment).to receive(:where).and_return(where_stub)
-      xhr :get, :timeline, id: "1,2,3,4+", state: "Expanded"
+      get :timeline, params: {id: "1,2,3,4+", state: "Expanded"}
     end
 
     it "should not update an arbitary model (sanitizes input)" do
       where_stub = double
       expect(where_stub).to receive(:update_all).with(state: "Expanded")
       expect(Comment).to receive(:where).and_return(where_stub)
-      xhr :get, :timeline, id: "1,2,3,4+", state: "Expanded"
+      get :timeline, params: {id: "1,2,3,4+", state: "Expanded"}
     end
   end
 end

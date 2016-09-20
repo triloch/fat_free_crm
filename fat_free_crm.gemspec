@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'jquery-ui-rails'
   gem.add_dependency 'select2-rails', '~> 3.5.9.3'
   gem.add_dependency 'simple_form'
-  gem.add_dependency 'will_paginate'
+  gem.add_dependency 'will_paginate', '~> 3.1.1'
   gem.add_dependency 'paperclip', '~> 5.1.0'
   # Manually added paperclip gem dependency "cocaine" in order to fix load error: "no such file to load -- cocaine"
   gem.add_dependency 'cocaine'
@@ -55,6 +55,6 @@ Gem::Specification.new do |gem|
   # FatFreeCRM has released it's own versions of the following gems:
   #-----------------------------------------------------------------
   gem.add_dependency 'ransack_ui',          '>= 1.3.1'
-  gem.add_dependency 'ransack',             '~> 1.6.2'
+  gem.add_dependency 'ransack'             #'~> 1.6.2'
   gem.add_dependency 'email_reply_parser_ffcrm'
 end

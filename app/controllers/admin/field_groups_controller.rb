@@ -66,7 +66,7 @@ class Admin::FieldGroupsController < Admin::ApplicationController
       FieldGroup.where(id: id).update_all(position: index + 1)
     end
 
-    render nothing: true
+    head :ok
   end
 
   # GET /admin/field_groups/1/confirm                                      AJAX

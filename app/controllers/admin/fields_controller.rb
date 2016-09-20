@@ -88,7 +88,7 @@ class Admin::FieldsController < Admin::ApplicationController
       Field.where(id: id).update_all(position: index + 1, field_group_id: field_group_id)
     end
 
-    render nothing: true
+    head :ok
   end
 
   # GET /fields/subform
