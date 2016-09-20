@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-# Uncomment the database that you have configured in config/database.yml
-# ----------------------------------------------------------------------
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '5.0.0', '>= 5.0.0.1'
+
 case ENV['CI'] && ENV['DB']
 when "mysql"; gem "mysql2"
 when "sqlite"; gem "sqlite3"
@@ -23,8 +25,10 @@ def gem(name, *args)
   super
 end
 
-# Bundler no longer treats runtime dependencies as base dependencies.
-# The following code restores this behaviour.
+gem 'rails-observers', :git => 'http://github.com/rails/rails-observers.git', :branch => 'master'
+gem 'sprockets', git: 'http://github.com/rails/sprockets.git'
+gem 'sprockets-rails', '~> 3.2.0'
+
 # (See https://github.com/carlhuda/bundler/issues/1041)
 spec = Bundler.load_gemspec(File.expand_path("../fat_free_crm.gemspec", __FILE__))
 spec.runtime_dependencies.each do |dep|
@@ -41,7 +45,7 @@ group :development do
   # don't load these gems in travis
   unless ENV["CI"]
     gem 'thin'
-    gem 'quiet_assets'
+    #gem 'quiet_assets' SP-TODO: config.assets.quiet = true
     gem 'capistrano'
     gem 'capistrano-bundler'
     gem 'capistrano-rails'
@@ -80,9 +84,12 @@ group :heroku do
   gem 'rails_12factor'
 end
 
-gem 'sass-rails'
-gem 'coffee-rails'
-gem 'uglifier'
+gem 'sass-rails', '~> 5.0'
+gem 'coffee-rails', '~> 4.2'
+gem 'uglifier', '>= 1.3.0'
 gem 'execjs'
 gem 'therubyracer', platform: :ruby unless ENV["CI"]
 gem 'nokogiri', '>= 1.6.8'
+gem 'jquery-rails'
+gem 'turbolinks', '~> 5'
+
