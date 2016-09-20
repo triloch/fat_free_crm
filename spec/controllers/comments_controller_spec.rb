@@ -23,12 +23,12 @@ describe CommentsController do
         end
 
         it "should redirect to the asset landing page if the asset is found" do
-          get :index, :"#{asset}_id" => @asset.id
+          get :index, params: {:"#{asset}_id" => @asset.id}
           expect(response).to redirect_to(controller: asset.to_s.pluralize, action: :show, id: @asset.id)
         end
 
         it "should redirect to root url with warning if the asset is not found" do
-          get :index, :"#{asset}_id" => @asset.id + 42
+          get :index, params: {:"#{asset}_id" => @asset.id + 42}
           expect(flash[:warning]).not_to eq(nil)
           expect(response).to redirect_to(root_path)
         end
@@ -42,12 +42,12 @@ describe CommentsController do
         end
 
         it "should render all comments as JSON if the asset is found found" do
-          get :index, :"#{asset}_id" => @asset.id
+          get :index, params: {:"#{asset}_id" => @asset.id}
           expect(response.body).to eq(assigns[:comments].to_json)
         end
 
         it "JSON: should return 404 (Not Found) JSON error if the asset is not found" do
-          get :index, :"#{asset}_id" => @asset.id + 42
+          get :index, params: { :"#{asset}_id" => @asset.id + 42}
           expect(flash[:warning]).not_to eq(nil)
           expect(response.code).to eq("404")
         end
@@ -61,12 +61,12 @@ describe CommentsController do
         end
 
         it "should render all comments as XML if the asset is found found" do
-          get :index, :"#{asset}_id" => @asset.id
+          get :index, params: {:"#{asset}_id" => @asset.id}
           expect(response.body).to eq(assigns[:comments].to_xml)
         end
 
         it "XML: should return 404 (Not Found) XML error if the asset is not found" do
-          get :index, :"#{asset}_id" => @asset.id + 42
+          get :index, params: {:"#{asset}_id" => @asset.id + 42}
           expect(flash[:warning]).not_to eq(nil)
           expect(response.code).to eq("404")
         end
@@ -83,7 +83,7 @@ describe CommentsController do
         @comment = FactoryGirl.create(:comment, id: 42, commentable: @asset, user: current_user)
         allow(Comment).to receive(:new).and_return(@comment)
 
-        xhr :get, :edit, id: 42
+        get :edit, params: {id: 42}
         expect(assigns[:comment]).to eq(@comment)
         expect(response).to render_template("comments/edit")
       end
@@ -101,7 +101,7 @@ describe CommentsController do
           @comment = FactoryGirl.build(:comment, commentable: @asset, user: current_user)
           allow(Comment).to receive(:new).and_return(@comment)
 
-          xhr :post, :create, comment: { commentable_type: asset.to_s.classify, commentable_id: @asset.id, user_id: current_user.id, comment: "Hello" }
+          post :create, params: { comment: { commentable_type: asset.to_s.classify, commentable_id: @asset.id, user_id: current_user.id, comment: "Hello" }}
           expect(assigns[:comment]).to eq(@comment)
           expect(response).to render_template("comments/create")
         end
@@ -115,7 +115,7 @@ describe CommentsController do
           @comment = FactoryGirl.build(:comment, commentable: @asset, user: current_user)
           allow(Comment).to receive(:new).and_return(@comment)
 
-          xhr :post, :create, comment: {}
+          post :create, params: {comment: {}}
           expect(assigns[:comment]).to eq(@comment)
           expect(response).to render_template("comments/create")
         end
@@ -132,18 +132,18 @@ describe CommentsController do
   #     it "should update the requested comment" do
   #       Comment.should_receive(:find).with("37").and_return(mock_comment)
   #       mock_comment.should_receive(:update_attributes).with({'these' => 'params'})
-  #       put :update, :id => "37", :comment => {:these => 'params'}
+  #       put :update, params: {:id => "37", :comment => {:these => 'params'}}
   #     end
   #
   #     it "should expose the requested comment as @comment" do
   #       Comment.stub(:find).and_return(mock_comment(:update_attributes => true))
-  #       put :update, :id => "1"
+  #       put :update, params: {:id => "1" }
   #       assigns(:comment).should equal(mock_comment)
   #     end
   #
   #     it "should redirect to the comment" do
   #       Comment.stub(:find).and_return(mock_comment(:update_attributes => true))
-  #       put :update, :id => "1"
+  #       put :update, params: {:id => "1" }
   #       response.should redirect_to(comment_path(mock_comment))
   #     end
   #   end
@@ -152,18 +152,18 @@ describe CommentsController do
   #     it "should update the requested comment" do
   #       Comment.should_receive(:find).with("37").and_return(mock_comment)
   #       mock_comment.should_receive(:update_attributes).with({'these' => 'params'})
-  #       put :update, :id => "37", :comment => {:these => 'params'}
+  #       put :update, params: {:id => "37", :comment => {:these => 'params'}}
   #     end
   #
   #     it "should expose the comment as @comment" do
   #       Comment.stub(:find).and_return(mock_comment(:update_attributes => false))
-  #       put :update, :id => "1"
+  #       put :update, params: {:id => "1"}
   #       assigns(:comment).should equal(mock_comment)
   #     end
   #
   #     it "should re-render the 'edit' template" do
   #       Comment.stub(:find).and_return(mock_comment(:update_attributes => false))
-  #       put :update, :id => "1"
+  #       put :update, params: {:id => "1"}
   #       response.should render_template('edit')
   #     end
   #   end
@@ -182,7 +182,7 @@ describe CommentsController do
             @comment = FactoryGirl.create(:comment, commentable: @asset, user: current_user)
             allow(Comment).to receive(:new).and_return(@comment)
 
-            xhr :delete, :destroy, id: @comment.id
+            delete :destroy, params: { id: @comment.id }
             expect { Comment.find(@comment.id) }.to raise_error(ActiveRecord::RecordNotFound)
             expect(response).to render_template("comments/destroy")
           end

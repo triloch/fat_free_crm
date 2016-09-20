@@ -11,6 +11,12 @@ require 'active_record'
 unless ENV['INCLUDE_CUSTOM_FIELDS']
   module ActiveRecord
     SchemaDumper.class_eval do
+      alias_method :initialize_without_ignored_custom_fields, :initialize
+      def initialize(connection, options = {})
+          initialize_with_ignored_custom_fields(connection, options)
+          initialize_without_ignored_custom_fieds(connection, options)
+      end
+
       def initialize_with_ignored_custom_fields(connection, options = {})
         # Override :columns method on this connection, to ignore any custom field columns
         connection.class_eval do
@@ -21,7 +27,7 @@ unless ENV['INCLUDE_CUSTOM_FIELDS']
         initialize_without_ignored_custom_fields(connection, options)
       end
 
-      alias_method_chain :initialize, :ignored_custom_fields
+      # alias_method_chain :initialize, :ignored_custom_fields
     end
   end
 end

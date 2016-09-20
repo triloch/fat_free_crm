@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
 
   before_action :set_context
   before_action :clear_setting_cache
-  before_action "hook(:app_before_filter, self)"
-  after_action "hook(:app_after_filter,  self)"
+  before_action :hook_before_filters
+  after_action  :hook_after_filters
 
   helper_method :current_user_session, :current_user, :can_signup?
   helper_method :called_from_index_page?, :called_from_landing_page?
@@ -213,8 +213,8 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html { redirect_to(redirection_url) }
-      format.js   { render text: 'window.location.reload();' }
-      format.json { render text: flash[:warning],  status: :not_found }
+      format.js   { render plain: 'window.location.reload();' }
+      format.json { render plain: flash[:warning],  status: :not_found }
       format.xml  { render xml: [flash[:warning]], status: :not_found }
     end
   end
@@ -253,4 +253,13 @@ class ApplicationController < ActionController::Base
             login_url
     end
   end
+
+  def hook_after_filters
+    hook(:app_after_filter,  self)
+  end
+
+  def hook_before_filters
+    hook(:app_before_filter, self)
+  end
+
 end

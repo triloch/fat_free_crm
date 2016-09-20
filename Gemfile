@@ -27,7 +27,7 @@ end
 
 gem 'rails-observers', :git => 'http://github.com/rails/rails-observers.git', :branch => 'master'
 gem 'sprockets', git: 'http://github.com/rails/sprockets.git'
-gem 'sprockets-rails', '~> 3.2.0'
+gem 'sprockets-rails', git: 'http://github.com/rails/sprockets-rails.git' #'~> 3.2.0'
 
 # (See https://github.com/carlhuda/bundler/issues/1041)
 spec = Bundler.load_gemspec(File.expand_path("../fat_free_crm.gemspec", __FILE__))
@@ -71,6 +71,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
