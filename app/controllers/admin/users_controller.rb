@@ -45,6 +45,7 @@ class Admin::UsersController < Admin::ApplicationController
   #----------------------------------------------------------------------------
   def create
     #TBDR5 - how to update params with nul
+    puts ">>>> CREATE: #{params.inspect}"
     params[:user][:password_confirmation] = nil if params[:user][:password_confirmation].blank?
     @user = User.new(user_params)
     @user.save_without_session_maintenance
@@ -104,7 +105,7 @@ class Admin::UsersController < Admin::ApplicationController
   protected
 
   def user_params
-    params[:user].permit(
+    params.require(:user).permit(
       :admin,
       :username,
       :email,
