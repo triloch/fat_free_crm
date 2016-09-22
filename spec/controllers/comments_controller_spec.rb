@@ -83,7 +83,7 @@ describe CommentsController do
         @comment = FactoryGirl.create(:comment, id: 42, commentable: @asset, user: current_user)
         allow(Comment).to receive(:new).and_return(@comment)
 
-        get :edit, params: {id: 42}
+        get :edit, xhr: true, params: {id: 42}
         expect(assigns[:comment]).to eq(@comment)
         expect(response).to render_template("comments/edit")
       end
@@ -101,7 +101,7 @@ describe CommentsController do
           @comment = FactoryGirl.build(:comment, commentable: @asset, user: current_user)
           allow(Comment).to receive(:new).and_return(@comment)
 
-          post :create, params: { comment: { commentable_type: asset.to_s.classify, commentable_id: @asset.id, user_id: current_user.id, comment: "Hello" }}
+          post :create, xhr: true, params: { comment: { commentable_type: asset.to_s.classify, commentable_id: @asset.id, user_id: current_user.id, comment: "Hello" }}
           expect(assigns[:comment]).to eq(@comment)
           expect(response).to render_template("comments/create")
         end
@@ -115,7 +115,7 @@ describe CommentsController do
           @comment = FactoryGirl.build(:comment, commentable: @asset, user: current_user)
           allow(Comment).to receive(:new).and_return(@comment)
 
-          post :create, params: {comment: {}}
+          post :create, xhr: true, params: {comment: {}}
           expect(assigns[:comment]).to eq(@comment)
           expect(response).to render_template("comments/create")
         end
@@ -182,7 +182,7 @@ describe CommentsController do
             @comment = FactoryGirl.create(:comment, commentable: @asset, user: current_user)
             allow(Comment).to receive(:new).and_return(@comment)
 
-            delete :destroy, params: { id: @comment.id }
+            delete :destroy, xhr: true, params: { id: @comment.id }
             expect { Comment.find(@comment.id) }.to raise_error(ActiveRecord::RecordNotFound)
             expect(response).to render_template("comments/destroy")
           end
