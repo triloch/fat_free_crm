@@ -19,7 +19,7 @@ class AuthenticationsController < ApplicationController
 
   #----------------------------------------------------------------------------
   def create
-    @authentication = Authentication.new(params[:authentication])
+    @authentication = Authentication.new(auth_params)
 
     if (@authentication.save && !@authentication.user.suspended?)
       flash[:notice] = t(:msg_welcome)
@@ -47,5 +47,10 @@ class AuthenticationsController < ApplicationController
     current_user_session.destroy
     flash[:notice] = t(:msg_goodbye)
     redirect_back_or_default login_url
+  end
+
+  protected
+  def auth_params
+    params.require(:authentication).permit(:username, :password, :remember_me)
   end
 end
