@@ -34,5 +34,3 @@ Design
 *~
 *.swp
 *.gem
-sandbox
-sandbox/**/*
