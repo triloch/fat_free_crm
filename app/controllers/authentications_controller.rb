@@ -21,7 +21,7 @@ class AuthenticationsController < ApplicationController
   def create
     @authentication = Authentication.new(params[:authentication])
 
-    if @authentication.save && !@authentication.user.suspended?
+    if (@authentication.save && !@authentication.user.suspended?)
       flash[:notice] = t(:msg_welcome)
       if @authentication.user.login_count > 1 && @authentication.user.last_login_at?
         flash[:notice] << " " << t(:msg_last_login, l(@authentication.user.last_login_at, format: :mmddhhss))
