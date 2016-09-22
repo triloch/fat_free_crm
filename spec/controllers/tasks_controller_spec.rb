@@ -78,7 +78,7 @@ describe TasksController do
       it "should render all tasks as JSON for #{view} view" do
         @tasks = produce_tasks(current_user, view)
         #get :index, view: view, format: :json
-        get :index, params: {view:  view, format:  :json}
+        get :index, params: {view:  view}, format:  :json
 
         expect(assigns[:tasks].keys.map(&:to_sym) - @tasks.keys).to eq([])
         expect(assigns[:tasks].values.flatten - @tasks.values.flatten).to eq([])
@@ -96,7 +96,7 @@ describe TasksController do
       it "should render all tasks as xml for #{view} view" do
         @tasks = produce_tasks(current_user, view)
         #get :index, view: view, format: :xml
-        get :index, params: {view:  view, format:  :xml}
+        get :index, params: {view:  view}, format: :xml
 
         expect(assigns[:tasks].keys.map(&:to_sym) - @tasks.keys).to eq([])
         expect(assigns[:tasks].values.flatten - @tasks.values.flatten).to eq([])
