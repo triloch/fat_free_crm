@@ -91,7 +91,10 @@ group :heroku do
   gem 'rails_12factor'
 end
 
-gem 'sass-rails', '~> 5.0'
+## must run with sass-rails 6.0, but this is still beta and it doesnt support
+## railties 5.0 and higher. But railties 5.0 is higher is required by rails5.0
+## so make local copy and change gemspec to add railties 5.0
+gem 'sass-rails', path: '../sass-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'execjs'
