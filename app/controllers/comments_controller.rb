@@ -33,10 +33,11 @@ class CommentsController < ApplicationController
   #----------------------------------------------------------------------------
   def edit
     @comment = Comment.find(params[:id])
-
     model, id = @comment.commentable_type, @comment.commentable_id
     unless model.constantize.my.find_by_id(id)
       respond_to_related_not_found(model.downcase)
+    else
+      respond_with(@comment)
     end
   end
 
