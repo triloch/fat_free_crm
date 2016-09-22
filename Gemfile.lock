@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/rails/activemodel-serializers-xml.git
+  revision: 570ee7ed33d60e44ca1f3ccbec3d1fbf61d52cbf
+  specs:
+    activemodel-serializers-xml (1.0.1)
+      activemodel (> 5.x)
+      activerecord (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
+
+GIT
   remote: http://github.com/activerecord-hackery/ransack.git
   revision: 442e5ad2b5934ac5f5ad5f0b21885a3a466bbf75
   specs:
@@ -392,6 +402,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel-serializers-xml!
   acts-as-taggable-on (>= 3.4.3)
   acts_as_commentable
   acts_as_fu
@@ -462,4 +473,4 @@ DEPENDENCIES
   zeus
 
 BUNDLED WITH
-   1.12.4
+   1.12.5
