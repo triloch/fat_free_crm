@@ -14,7 +14,7 @@ unless ENV['INCLUDE_CUSTOM_FIELDS']
       alias_method :initialize_without_ignored_custom_fields, :initialize
       def initialize(connection, options = {})
           initialize_with_ignored_custom_fields(connection, options)
-          initialize_without_ignored_custom_fieds(connection, options)
+          initialize_without_ignored_custom_fields(connection, options)
       end
 
       def initialize_with_ignored_custom_fields(connection, options = {})

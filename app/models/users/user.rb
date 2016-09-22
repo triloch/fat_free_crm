@@ -154,7 +154,8 @@ class User < ActiveRecord::Base
   # Prevent current user from deleting herself.
   #----------------------------------------------------------------------------
   def check_if_current_user
-    User.current_user.nil? || User.current_user != self
+    throw(:abort) unless User.current_user.nil? || User.current_user != self
+    
   end
 
   # Prevent deleting a user unless she has no artifacts left.
@@ -166,6 +167,7 @@ class User < ActiveRecord::Base
       sum += klass.created_by(self).count
     end
     artifacts == 0
+    throw(:abort) unless artifacts == 0
   end
 
   # Define class methods
