@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :set_context
   before_action :clear_setting_cache
   before_action :hook_before_filters
+  before_action :set_paper_trail_whodunnit
   after_action  :hook_after_filters
 
   helper_method :current_user_session, :current_user, :can_signup?
