@@ -26,10 +26,10 @@ def gem(name, *args)
 end
 
 ##BUG in rails-observers needs to be fixed see https://github.com/rails/rails-observers/issues/45
-gem 'rails-observers', :git => 'http://github.com/rails/rails-observers.git', :branch => 'master'
+gem 'rails-observers', :path => '../rails-observers'
 gem 'sprockets', git: 'http://github.com/rails/sprockets.git'
 gem 'sprockets-rails', git: 'http://github.com/rails/sprockets-rails.git' #'~> 3.2.0'
-gem 'ransack', git: 'http://github.com/activerecord-hackery/ransack.git'
+gem 'ransack', :path => '../ransack'
 gem 'will_paginate', '~> 3.1.1'
 
 #Rails5 xml serializer is separated out
@@ -77,7 +77,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
