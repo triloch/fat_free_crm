@@ -138,7 +138,7 @@ describe Admin::UsersController do
         @user = FactoryGirl.build(:user, username: "", email: "")
         allow(User).to receive(:new).and_return(@user)
 
-        post :create, xhr: true, params: {user: {}}
+        post :create, xhr: true, params: {user: { username: ""}}
         expect(assigns[:user]).to eq(@user)
         expect(response).to render_template("admin/users/create")
       end
