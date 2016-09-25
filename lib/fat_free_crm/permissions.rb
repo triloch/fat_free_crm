@@ -5,56 +5,73 @@
 #------------------------------------------------------------------------------
 module FatFreeCRM
   module Permissions
-    def self.included(base)
-      base.extend(ClassMethods)
+    extend ActiveSupport::Concern
+
+    included do
+
     end
 
     module ClassMethods
       def uses_user_permissions
-        unless included_modules.include?(InstanceMethods)
-          #
-          # NOTE: we're deliberately omitting :dependent => :destroy to preserve
-          # permissions of deleted objects. This serves two purposes: 1) to be able
-          # to implement Recycle Bin/Restore and 2) to honor permissions when
-          # displaying "object deleted..." in the activity log.
-          #
-          has_many :permissions, as: :asset
+        has_many :permissions, as: :asset
+        attr_accessor :dirty
 
-          scope :my, lambda {
-            accessible_by(User.current_ability)
-          }
-
-          include FatFreeCRM::Permissions::InstanceMethods
-          extend FatFreeCRM::Permissions::SingletonMethods
-        end
+        scope :my, lambda {
+          accessible_by(User.current_ability)
+        }
+        include FatFreeCRM::Permissions::InstanceMethods
       end
     end
 
-    module InstanceMethods
-      # Save shared permissions to the model, if any.
-      #--------------------------------------------------------------------------
-      %w(group user).each do |model|
-        class_eval %{
 
-          def #{model}_ids=(value)
-            if access != 'Shared'
-              remove_permissions
-            else
-              value = value.flatten.reject(&:blank?).uniq.map(&:to_i)
-              permissions_to_remove = Permission.where(
-                #{model}_id: self.#{model}_ids - value,
+    module InstanceMethods
+      def make_dirty
+        self.dirty = true
+      end
+
+      def changed?
+        dirty || super
+      end
+
+      def user_ids=(value)
+        if access != 'Shared'
+          remove_permissions
+        else
+          value = value.flatten.reject(&:blank?).uniq.map(&:to_i)
+          permissions_to_remove = Permission.where(
+                user_id: self.user_ids - value,
                 asset_id: self.id,
                 asset_type: self.class
               )
-              permissions_to_remove.each {|p| (permissions.delete(p); p.destroy)}
-              (value - self.#{model}_ids).each {|id| permissions.build(:#{model}_id => id)}
-            end
-          end
+          permissions_to_remove.each {|p| (permissions.delete(p); p.destroy)}
+              (value - self.user_ids).each {|id| permissions.build(:user_id => id)}
+          make_dirty
+        end
+      end
 
-          def #{model}_ids
-            permissions.map(&:#{model}_id).compact
-          end
-        }
+      def user_ids
+        permissions.map(&:user_id).compact
+      end
+
+
+      def group_ids=(value)
+        if access != 'Shared'
+          remove_permissions
+        else
+          value = value.flatten.reject(&:blank?).uniq.map(&:to_i)
+          permissions_to_remove = Permission.where(
+                group_id: self.group_ids - value,
+                asset_id: self.id,
+                asset_type: self.class
+              )
+          permissions_to_remove.each {|p| (permissions.delete(p); p.destroy)}
+              (value - self.group_ids).each {|id| permissions.build(:group_id => id)}
+          make_dirty
+        end
+      end
+
+      def group_ids
+        permissions.map(&:group_id).compact
       end
 
       # Remove all shared permissions if no longer shared
