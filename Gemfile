@@ -29,7 +29,7 @@ end
 gem 'rails-observers', :path => '../rails-observers'
 gem 'sprockets', git: 'http://github.com/rails/sprockets.git'
 gem 'sprockets-rails', git: 'http://github.com/rails/sprockets-rails.git' #'~> 3.2.0'
-gem 'ransack', :path => '../ransack'
+gem 'ransack' #, :path => '../ransack'
 gem 'will_paginate', '~> 3.1.1'
 
 #Rails5 xml serializer is separated out
