@@ -189,7 +189,7 @@ describe UsersController do
         allow(User).to receive(:new).and_return(@user)
 
         #post :create, user: {}
-        post :create, params: {user:  {}}
+        post :create, params: {user:  {username: ""}}
         expect(assigns[:user]).to eq(@user)
         expect(response).to render_template("users/new")
       end
