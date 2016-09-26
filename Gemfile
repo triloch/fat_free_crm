@@ -26,14 +26,14 @@ def gem(name, *args)
 end
 
 ##BUG in rails-observers needs to be fixed see https://github.com/rails/rails-observers/issues/45
-gem 'rails-observers', :github => 'triloch/rails-observers'
-gem 'sprockets', :github => 'rails/sprockets'
-gem 'sprockets-rails', github: 'rails/sprockets-rails' 
+gem 'rails-observers', git: 'https://github.com/triloch/rails-observers.git'
+gem 'sprockets', git: 'https://github.com/rails/sprockets.git'
+gem 'sprockets-rails', git: 'https://github.com/rails/sprockets-rails.git'
 gem 'ransack'
 gem 'will_paginate', '~> 3.1.1'
 
 #Rails5 xml serializer is separated out
-gem 'activemodel-serializers-xml', github: 'rails/activemodel-serializers-xml'
+gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml.git'
 
 # (See https://github.com/carlhuda/bundler/issues/1041)
 spec = Bundler.load_gemspec(File.expand_path("../fat_free_crm.gemspec", __FILE__))
@@ -77,7 +77,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rails-controller-testing', github: 'rails/rails-controller-testing'
+  gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing.git'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
@@ -94,7 +94,7 @@ end
 ## must run with sass-rails 6.0, but this is still beta and it doesnt support
 ## railties 5.0 and higher. But railties 5.0 is higher is required by rails5.0
 ## so make local copy and change gemspec to add railties 5.0
-gem 'sass-rails', :github => 'triloch/sass-rails', :branch => 'v6.0.0.beta2'
+gem 'sass-rails', git: 'https://github.com/triloch/sass-rails.git', :branch => 'v6.0.0.beta2'
 gem 'coffee-rails', '~> 4.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'execjs'
@@ -102,4 +102,3 @@ gem 'therubyracer', platform: :ruby unless ENV["CI"]
 gem 'nokogiri', '>= 1.6.8'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-
