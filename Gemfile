@@ -26,10 +26,10 @@ def gem(name, *args)
 end
 
 ##BUG in rails-observers needs to be fixed see https://github.com/rails/rails-observers/issues/45
-gem 'rails-observers', :path => '../rails-observers'
-gem 'sprockets', git: 'http://github.com/rails/sprockets.git'
-gem 'sprockets-rails', git: 'http://github.com/rails/sprockets-rails.git' #'~> 3.2.0'
-gem 'ransack' #, :path => '../ransack'
+gem 'rails-observers', :github => 'triloch/rails-observers'
+gem 'sprockets', :github => 'rails/sprockets'
+gem 'sprockets-rails', github: 'rails/sprockets-rails' 
+gem 'ransack'
 gem 'will_paginate', '~> 3.1.1'
 
 #Rails5 xml serializer is separated out
@@ -94,7 +94,7 @@ end
 ## must run with sass-rails 6.0, but this is still beta and it doesnt support
 ## railties 5.0 and higher. But railties 5.0 is higher is required by rails5.0
 ## so make local copy and change gemspec to add railties 5.0
-gem 'sass-rails', path: '../sass-rails'
+gem 'sass-rails', :github => 'triloch/sass-rails', :branch => 'v6.0.0.beta2'
 gem 'coffee-rails', '~> 4.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'execjs'
