@@ -14,8 +14,8 @@ contact lists, and opportunity tracking.
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/login-page.png?raw=true" target="_blank" title="Login">
-        <img src="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/login-page.png?raw=true" alt="Login">
+      <a href="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/main-page.png?raw=true" target="_blank" title="Login">
+        <img src="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/main-page.png?raw=true" alt="Login">
       </a>
       <br />
       <em>Home Page</em>
