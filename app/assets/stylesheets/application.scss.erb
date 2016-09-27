@@ -1,0 +1,36 @@
+//
+// Copyright (c) 2008-2013 Michael Dvorkin and contributors.
+//
+// Fat Free CRM is freely distributable under the terms of MIT license.
+// See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
+//
+
+@import "jquery-ui.custom";
+@import "jquery-ui/dialog";
+@import "select2";
+@import "modalbox";
+@import "rails";
+@import "safari";
+@import "base";
+@import "header";
+@import "common";
+@import "chosen";
+@import "ffcrm_chosen";
+@import "fields";
+@import "textarea_autocomplete";
+@import "admin/fields";
+@import "advanced_search";
+@import "format_buttons";
+@import "font-awesome";
+@import "lists";
+@import "about";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "ffcrmtheme";
+
+
+<%
+Gem.loaded_specs.keys.grep(/^ffcrm_/).each do |plugin|
+  require_asset(plugin) rescue Sprockets::FileNotFound
+end
+%>

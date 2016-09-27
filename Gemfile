@@ -95,6 +95,7 @@ end
 ## railties 5.0 and higher. But railties 5.0 is higher is required by rails5.0
 ## so make local copy and change gemspec to add railties 5.0
 gem 'sass-rails', :github => 'triloch/sass-rails', :branch => 'v6.0.0.beta2'
+gem 'bootstrap-sass', :github => 'twbs/bootstrap-sass'
 gem 'coffee-rails', '~> 4.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'execjs'
@@ -102,4 +103,4 @@ gem 'therubyracer', platform: :ruby unless ENV["CI"]
 gem 'nokogiri', '>= 1.6.8'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-
+gem 'ffcrmtheme', :github => 'triloch/ffcrmtheme'

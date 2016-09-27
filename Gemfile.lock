@@ -35,6 +35,12 @@ GIT
       rack (> 1, < 3)
 
 GIT
+  remote: git://github.com/triloch/ffcrmtheme.git
+  revision: e3e41354b22f1386852a9c768d85c52396d238e3
+  specs:
+    ffcrmtheme (0.1.0)
+
+GIT
   remote: git://github.com/triloch/rails-observers.git
   revision: ea30390cb07b4a37dd2f9d03966c89c1372f9dbe
   specs:
@@ -51,6 +57,14 @@ GIT
       sass (~> 3.4)
       sprockets (~> 4.x)
       sprockets-rails (< 4.0)
+
+GIT
+  remote: git://github.com/twbs/bootstrap-sass.git
+  revision: 5d6b2ebba0c2a5885ce2f0e01e9218db3d3b5e47
+  specs:
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
 
 GEM
   remote: https://rubygems.org/
@@ -109,6 +123,8 @@ GEM
       activesupport (>= 3.2, < 5.1)
       request_store (~> 1.0)
       scrypt (>= 1.2, < 4.0)
+    autoprefixer-rails (6.5.0)
+      execjs
     builder (3.2.2)
     byebug (9.0.5)
     cancancan (1.15.0)
@@ -412,6 +428,7 @@ DEPENDENCIES
   acts_as_fu
   acts_as_list
   authlogic (>= 3.4.4)
+  bootstrap-sass!
   byebug
   cancancan
   capistrano
@@ -429,6 +446,7 @@ DEPENDENCIES
   execjs
   factory_girl_rails
   ffaker (>= 2)
+  ffcrmtheme!
   font-awesome-rails
   guard
   guard-rails
