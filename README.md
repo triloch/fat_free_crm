@@ -14,18 +14,18 @@ contact lists, and opportunity tracking.
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/main-page.png?raw=true" target="_blank" title="Login">
-        <img src="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/main-page.png?raw=true" alt="Login">
+      <a href="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/main-page.png?raw=true" target="_blank" title="Home">
+        <img src="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/main-page.png?raw=true" alt="Home">
       </a>
       <br />
       <em>Home Page</em>
     </td>
     <td align="center">
-      <a href="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/home-page.png?raw=true" target="_blank" title="Home Page">
-        <img src="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/login-page.png?raw=true" alt="Home Page">
+      <a href="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/login-page.png?raw=true" target="_blank" title="Login Page">
+        <img src="https://github.com/triloch/fat_free_crm/blob/rails5e/vendor/assets/images/login-page.png?raw=true" alt="Login Page">
       </a>
       <br />
-      <em>Opportunities</em>
+      <em>Login</em>
     </td>
     <td align="center">
       <a href="https://github.com/fatfreecrm/fatfreecrm.github.com/raw/master/images/account_edit.png" target="_blank" title="Edit Accounts">
