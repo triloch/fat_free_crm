@@ -1,15 +1,17 @@
-.tabs
-  %ul
-    - tabs.each do |tab|
-      %li
-        = link_to(tab[:url], :class => tab[:active] ? "active" : nil) do
-          %i.fa{class: tab[:icon]}
-          = t(tab[:text])
-
-= show_flash
-%table{ :width => "100%", :height => "100%", :cellpadding => 0, :cellspacing => 0, :class => :tabbed }
-  %tr
-    %td{ :class => :sidebar, :id => :sidebar, :valign => :top }
-      = render "layouts/sidebar"
-    %td{ :class => :main, :id => :main, :valign => :top }
-      = yield
+%aside.main-sidebar
+  %section.sidebar
+    %ul.sidebar-menu
+      - tabs.each do |tab|
+        %li
+          = link_to(tab[:url], :class => tab[:active] ? "active" : nil) do
+            %i.fa.fa{class: tab[:icon]}
+            %span= t(tab[:text])
+.content-wrapper{:style => 'min-height: 1036px'}
+  = show_flash
+  %section.content
+    .row
+      .col-md-3
+        = render "layouts/sidebar"
+      .col-md-9
+        = yield
+  .control-sidebar-bg{:style => "position: fixed; height: auto"}
