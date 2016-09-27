@@ -1,19 +1,25 @@
-.standalone#standalone
-  -# The following form gets submitted to #create when @authentication is nil,
-  -# or to #update when @authentication is not nil (ex. suspended).
-  = form_for @authentication, :url => authentication_path, :html => one_submit_only do |f|
-    - if can_signup?
-      .title_tools #{t :no_account} #{link_to t(:sign_up_now), signup_path}
-    .title= t(:login)
-    .section
-      .label= t(:username) + ':'
-      = f.text_field :username
-      .label= t(:password) + ':'
-      = f.password_field :password
 
-    %div(style="margin-left:12px") #{f.check_box(:remember_me)} #{t :remember_me}
+.login-box
+  .login-logo
+    <b>FF</b>CRM
+  .login-box-body
+    %p.login-box-msg
+      =t(:login)
+    = form_for @authentication, :url => authentication_path, :html => one_submit_only do |f|
+      .form-group.has-feedback
+        = f.text_field :username, :class => 'form-control', :placeholder => t(:username)
+        %span.glyphicon.glyphicon-envelop.form-control-feedback
+      .form-group.has-feedback
+        = f.password_field :password, :class => 'form-control', :placeholder => t(:password)
+        %span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-8
+          .checkbox.icheck
+            %div(style="margin-left:20px") #{f.check_box(:remember_me)} #{t :remember_me}
+        .col-xs-4
+          %button.btn.btn-primary.btn-block.btn-flat{:type => "submit"}
+            = t(:login)
+    %hr
+    = link_to t(:forgot_password) << '?', new_password_path
     %br
-    .buttonbar
-      = f.submit t(:login)
-      #{t :or}
-      = link_to t(:forgot_password) << '?', new_password_path
+    #{t :no_account} #{link_to t(:sign_up_now), signup_path}
